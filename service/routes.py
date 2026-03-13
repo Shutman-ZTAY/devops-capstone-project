@@ -98,8 +98,8 @@ def get_account(account_id):
 # UPDATE AN EXISTING ACCOUNT
 ######################################################################
 
-@app.route("/accounts", methods=["PUT"])
-def update_account():
+@app.route("/accounts/<account_id>", methods=["PUT"])
+def update_account(account_id):
     """
     Updates an Account
     This endpoint will update an Account based the data in the body that is posted
@@ -108,11 +108,12 @@ def update_account():
     check_content_type("application/json")
     account_payload = Account()
     account_payload.deserialize(request.get_json())
-    account_db = Account.find(account_payload.id)
+    account_db = Account.find(account_id)
     if account_db == None:
         return make_response(
             "", status.HTTP_404_NOT_FOUND
         )
+    account_payload.id = account_id
     account_payload.update()
     message = account_payload.serialize()
     location_url = url_for("get_accounts", account_id=account_payload.id, _external=True)

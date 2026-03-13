@@ -164,7 +164,7 @@ class TestAccountService(TestCase):
         account.name = "Updated Name"
 
         response = self.client.put(
-            f"{BASE_URL}",
+            f"{BASE_URL}/{account.id}",
             json=account.serialize(),
             content_type="application/json"
         )
