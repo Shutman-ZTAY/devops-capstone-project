@@ -161,7 +161,6 @@ class TestAccountService(TestCase):
         accounts = self._create_accounts(1)
         account = accounts[0]
 
-        account.id = 1
         account.name = "Updated Name"
 
         response = self.client.put(
