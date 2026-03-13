@@ -118,7 +118,7 @@ def update_account(account_id):
     message = account_payload.serialize()
     location_url = url_for("get_accounts", account_id=account_payload.id, _external=True)
     return make_response(
-        jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
+        jsonify(message), status.HTTP_200_OK, {"Location": location_url}
     )
 
 
