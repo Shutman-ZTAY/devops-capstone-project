@@ -66,7 +66,6 @@ def get_accounts():
     This endpoint response with all accounts in the database
     """
     app.logger.info("Request to list all accounts")
-    check_content_type("application/json")
     accounts = Account.all()
     accounts_serialiced = [a.serialize() for a in accounts]
     return make_response(
@@ -85,7 +84,6 @@ def get_account(account_id):
     This endpoint response an account in the database
     """
     app.logger.info("Request to GET an Account")
-    check_content_type("application/json")
     account = Account.find(account_id)
     if account == None:
         return make_response(
@@ -134,7 +132,6 @@ def delete_account(account_id):
     This endpoint delete an account in the database
     """
     app.logger.info("Request to DELETE an Account")
-    check_content_type("application/json")
     account = Account.find(account_id)
     if account != None:
         account.delete()
