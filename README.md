@@ -1,5 +1,7 @@
 # devops-capstone-project
 
+![Build Status](https://github.com/Shutman-ZTAY/devops-capstone-project/actions/workflows/ci-build.yaml/badge.svg)
+
 This capstone project focuses on building and delivering a fully functional Customer Accounts microservice while applying modern DevOps and Agile practices. Throughout the course, the project is developed incrementally using multiple sprints, integrating planning, development, testing, security, and deployment automation.
 
 The project begins with Agile planning, where a GitHub repository and Kanban board are created to manage the workflow. User stories are written and organized into a product backlog, followed by sprint planning with estimated story points and sprint backlogs.

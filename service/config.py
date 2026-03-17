@@ -1,8 +1,8 @@
 """
 Global Configuration for Application
 """
-import os
 
+import os
 
 # Get configuration from environment
 DATABASE_URI = os.getenv("DATABASE_URI")
