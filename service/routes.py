@@ -3,8 +3,9 @@ Account Service
 
 This microservice handles the lifecycle of Accounts
 """
+
 # pylint: disable=unused-import
-from flask import jsonify, request, make_response, abort, url_for   # noqa; F401
+from flask import jsonify, request, make_response, abort, url_for  # noqa; F401
 from service.models import Account
 from service.common import status  # HTTP Status Codes
 from . import app  # Import Flask application
@@ -55,9 +56,11 @@ def create_accounts():
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
     )
 
+
 ######################################################################
 # LIST ALL ACCOUNTS
 ######################################################################
+
 
 @app.route("/accounts", methods=["GET"])
 def get_accounts():
@@ -68,14 +71,13 @@ def get_accounts():
     app.logger.info("Request to list all accounts")
     accounts = Account.all()
     accounts_serialiced = [a.serialize() for a in accounts]
-    return make_response(
-        jsonify(accounts_serialiced), status.HTTP_200_OK
-    )
+    return make_response(jsonify(accounts_serialiced), status.HTTP_200_OK)
 
 
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
+
 
 @app.route("/accounts/<account_id>", methods=["GET"])
 def get_account(account_id):
@@ -85,18 +87,15 @@ def get_account(account_id):
     """
     app.logger.info("Request to GET an Account")
     account = Account.find(account_id)
-    if account == None:
-        return make_response(
-        "", status.HTTP_404_NOT_FOUND
-    )
-    return make_response(
-        jsonify(account.serialize()), status.HTTP_200_OK
-    )
+    if account is None:
+        return make_response("", status.HTTP_404_NOT_FOUND)
+    return make_response(jsonify(account.serialize()), status.HTTP_200_OK)
 
 
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
 ######################################################################
+
 
 @app.route("/accounts/<account_id>", methods=["PUT"])
 def update_account(account_id):
@@ -109,14 +108,14 @@ def update_account(account_id):
     account_payload = Account()
     account_payload.deserialize(request.get_json())
     account_db = Account.find(account_id)
-    if account_db == None:
-        return make_response(
-            "", status.HTTP_404_NOT_FOUND
-        )
+    if account_db is None:
+        return make_response("", status.HTTP_404_NOT_FOUND)
     account_payload.id = account_id
     account_payload.update()
     message = account_payload.serialize()
-    location_url = url_for("get_accounts", account_id=account_payload.id, _external=True)
+    location_url = url_for(
+        "get_accounts", account_id=account_payload.id, _external=True
+    )
     return make_response(
         jsonify(message), status.HTTP_200_OK, {"Location": location_url}
     )
@@ -126,6 +125,7 @@ def update_account(account_id):
 # DELETE AN ACCOUNT
 ######################################################################
 
+
 @app.route("/accounts/<account_id>", methods=["DELETE"])
 def delete_account(account_id):
     """
@@ -134,11 +134,9 @@ def delete_account(account_id):
     """
     app.logger.info("Request to DELETE an Account")
     account = Account.find(account_id)
-    if account != None:
+    if account is not None:
         account.delete()
-    return make_response(
-        "", status.HTTP_204_NO_CONTENT
-    )
+    return make_response("", status.HTTP_204_NO_CONTENT)
 
 
 ######################################################################
