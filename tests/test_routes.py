@@ -201,7 +201,7 @@ class TestAccountService(TestCase):
         # Verify it is gone
         response = self.client.get(f"{BASE_URL}/{account.id}")
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-    
+
     ######################################################################
     #  S E C U R I T Y   T E S T   C A S E S
     ######################################################################
@@ -218,7 +218,7 @@ class TestAccountService(TestCase):
         }
         for key, value in headers.items():
             self.assertEqual(response.headers.get(key), value)
-    
+
     def test_cors_security(self):
         """It should return a CORS header"""
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
